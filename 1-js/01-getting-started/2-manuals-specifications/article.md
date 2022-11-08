@@ -15,7 +15,7 @@ To read about new bleeding-edge features, including those that are "almost stand
 
 Also, if you're developing for the browser, then there are other specifications covered in the [second part](info:browser-environment) of the tutorial.
 
-## Manuals
+## Qo'llanmalar
 
 - **MDN (Mozilla) JavaScript Reference** is the main manual with examples and other information. It's great to get in-depth information about individual language functions, methods etc.
 
