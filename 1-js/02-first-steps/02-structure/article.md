@@ -1,7 +1,7 @@
 # Kod tuzilishi
 
 Biz o'rganadigan birinchi narsa kodning qurilish bloklari bo'ladi.
-## Statements
+## Statementlar
 
 Statementlar sintaksis tuzilmalar va amallarni bajaradigan buyruqlardir.
 
