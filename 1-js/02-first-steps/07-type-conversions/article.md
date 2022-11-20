@@ -1,89 +1,89 @@
-# Type Conversions
+# Type Conversions Yozuv suhbatlari 
 
-Most of the time, operators and functions automatically convert the values given to them to the right type.
+Ko'pincha operator va funksiyalar o'zlariga berilgan qiymatlarni to'g'ri turga o'tkazib oladdi. 
 
-For example, `alert` automatically converts any value to a string to show it. Mathematical operations convert values to numbers.
+Masalan,  `alert`istalgan qiymatni ko'rsatish uchun satr ko'rinishiga o'tkazib oladi. Matematik operatsiyalar esa qiymatlarni raqamlarga aylantirib oladilar. 
 
-There are also cases when we need to explicitly convert a value to the expected type.
+There are also cases when we need to explicitly convert a value to the expected type. Ba'zi holatlar borki, qiymatni kutilgan turga aniq ravishda o'tkazishimiz kerak bo'ladi. 
 
-```smart header="Not talking about objects yet"
-In this chapter, we won't cover objects. For now we'll just be talking about primitives.
+```smart header="Hali obyektlar haqida gapirilayotkani yo'q"
+Bu bo'limda obyektlarni qamrab olmaymiz. Hozircha faqat primitive(sodda, o'zgaruvchilar) haqida gaplashamiz. 
 
-Later, after we learn about objects, in the chapter <info:object-toprimitive> we'll see how objects fit in.
+Keyinroq, obyektlarni o'rganib bo'lgach, <info:object-toprimitive> bo'limida obyektlar qanday mos kelishini o'rganib chiqamiz. 
 ```
 
-## String Conversion
+## Satrli suhbat 
 
-String conversion happens when we need the string form of a value.
+Satr suhbati bizga qiymatning satr shakl mavjud bo'lganda kerak bo'ladi. 
 
-For example, `alert(value)` does it to show the value.
+Misol uchun, `alert(value)` qiymatni ko'rsatish uchun buni qiladi. 
 
-We can also call the `String(value)` function to convert a value to a string:
+Shuningdek, `String(value)` funksiyasini ham qiymatni satrga aylantirishda qo'llasa bo'ladi: 
 
 ```js run
 let value = true;
 alert(typeof value); // boolean
 
 *!*
-value = String(value); // now value is a string "true"
-alert(typeof value); // string
+value = String(value); // hozir qiymat satrda "true" (to'g'ri)
+alert(typeof value); // satr
 */!*
 ```
 
-String conversion is mostly obvious. A `false` becomes `"false"`, `null` becomes `"null"`, etc.
+Satrli suhbat ko'pincha ravshan ko'rinishda bo'ladi. `false`  `"false"` ga o'zgaradi, `null` esa `"null"` ga va boshqalar. 
 
-## Numeric Conversion
+## Raqamli suhbat 
 
-Numeric conversion happens in mathematical functions and expressions automatically.
+Raqamli suhbat matematik funksiya va ifodalarda avtomatik ravishda sodir bo'ladi. 
 
-For example, when division `/` is applied to non-numbers:
+Misol uchun, bo'luv amali `/` raqamsiz ifodalarga foydalanilganda: 
 
 ```js run
-alert( "6" / "2" ); // 3, strings are converted to numbers
+alert( "6" / "2" ); // 3, satrlar raqamlarga aylantiriladi
 ```
 
-We can use the `Number(value)` function to explicitly convert a `value` to a number:
+`Number(value)` funksiyasdan `value`(qiymat)ni raqamga ochiq ravishda aylantirishda foydalana olamiz:
 
 ```js run
 let str = "123";
-alert(typeof str); // string
+alert(typeof str); // satr
 
-let num = Number(str); // becomes a number 123
+let num = Number(str); // 123 raqamiga o'zgaradi
 
-alert(typeof num); // number
+alert(typeof num); // raqam
 ```
 
-Explicit conversion is usually required when we read a value from a string-based source like a text form but expect a number to be entered.
+Qiymatni matn shakli kabi satrga asoslangan manbalardan o'qib, lekin raqam kiritilishini kutkanimizda, bizdan aniq va ravshan conversion (aylantirish) talab qilinadi. 
 
-If the string is not a valid number, the result of such a conversion is `NaN`. For instance:
+Agar satr haqiqiy raqam bo'lmasa, bunday conversion (aylantirish)ning natijasi `NaN` bo'ladi. Masalan:
 
 ```js run
-let age = Number("an arbitrary string instead of a number");
+let age = Raqam("raqam o'rniga ixtiyoriy qator");
 
-alert(age); // NaN, conversion failed
+alert(age); // NaN, konvertatsiya amalga oshmadi
 ```
 
-Numeric conversion rules:
+Numeric conversion rules: Raqamli konvertatsiya qoidalari:
 
-| Value |  Becomes... |
+| Qiymat |  O'zgaradi... |
 |-------|-------------|
-|`undefined`|`NaN`|
+|`aniqlanmagan`|`NaN`|
 |`null`|`0`|
-|<code>true&nbsp;and&nbsp;false</code> | `1` and `0` |
-| `string` | Whitespaces from the start and end are removed. If the remaining string is empty, the result is `0`. Otherwise, the number is "read" from the string. An error gives `NaN`. |
+|<code>true&nbsp;and&nbsp;yolg'on</code> | `1` va `0` |
+| `string` (satr) | Boshidagi va oxiridagi bo'shliqlar olib tashlanadi. Agar qolgan satr bo'sh bo'lsa, natija `0` bo'ladi. Aks holda, raqam satrdan "o'qiladi". Xatolik `NaN`ni beradi. |
 
-Examples:
+Misollar:
 
 ```js run
 alert( Number("   123   ") ); // 123
-alert( Number("123z") );      // NaN (error reading a number at "z")
+alert( Number("123z") );      // NaN ("z" dagi raqamni o'qishda xatolik)
 alert( Number(true) );        // 1
 alert( Number(false) );       // 0
 ```
 
-Please note that `null` and `undefined` behave differently here: `null` becomes zero while `undefined` becomes `NaN`.
+Shunga e'tibor bering,  `null` va `undefined` bu yerda turlicha harakat qiladi.`null` nolga aylanadi, `undefined` esa`NaN`ga.
 
-Most mathematical operators also perform such conversion, we'll see that in the next chapter.
+Most mathematical operators also perform such conversion, we'll see that in the next chapter. Ko'p matematik operatsiyalar ham bunday knvertatsiyalarni amalga oshiradi, buni keyingi bo'limda ko'rib chiqamiz. 
 
 ## Boolean Conversion
 
