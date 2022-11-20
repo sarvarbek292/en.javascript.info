@@ -1,8 +1,8 @@
 # Brauzerda debug qilish 
 
- Murakkab kodlar yozishdan avval, keling debugging haqida gaplashib chiqamiz. 
+ Murakkab kodlar yozishdan oldin, keling avval debugging haqida gaplashib chiqamiz. 
 
-[Debugging](https://en.wikipedia.org/wiki/Debugging) scriptdagi xatolarni topish va tuzatish jarayoni. Barcha brauzerlar va boshqa muhitlar debugging vositalarini qo'llab quvvatlaydi -- developer toolardagi debuggingni osonlashtiruvchi maxsus UI dir. U shuningdek, nima sodir bo'layotkanini ko'rish uchun bosqichma-bosqich kuzatish imkopnini beradi. 
+[Debugging](https://en.wikipedia.org/wiki/Debugging) scriptdagi xatolarni topish va tuzatish jarayoni. Barcha brauzerlar va boshqa muhitlar debugging vositalarini qo'llab quvvatlaydi -- developer toolardagi debuggingni osonlashtiruvchi maxsus UI dir. U shuningdek, nima sodir bo'layotkanini ko'rish uchun bosqichma-bosqich kuzatish imkonini beradi. 
 
 Bu yerda Chrome dan foydalanamiz, chunki unda yetarlicha xususiyatlar mavjud. Boshqa ko'plab brauzerlareda ham o'xshash jarayon bor. 
 
