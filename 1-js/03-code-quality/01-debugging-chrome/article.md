@@ -186,7 +186,7 @@ Agar bizda kodda yetarlicha logging bo'lsa, u holda biz yozuvlardan debuggersiz 
 Ko'rib turganimizdek, scriptni to'xtatishni uchta asosiy yo'li mavjud:
 1. A breakpoint.
 2. The `debugger` statements.
-3. Xato (if dev toollar ochiq va <span class="devtools" style="background-position:-90px -146px"></span> tugmasi "on" bo'lsa).  
+3. Xato ( dev toollar ochiq va <span class="devtools" style="background-position:-90px -146px"></span> tugmasi "on" bo'lsa).  
 
 To'xtatib qo'yilganda (pauza qilinganda), debug qila olamiz - o'zgaruvchilarni teksira olamiz va qayerda xato ketayotkanini ko'riah uchun kodni kuzata olamiz. 
 
