@@ -14,7 +14,7 @@ Sizning Chrome versiyangiz biroz boshqacha ko'rinishda bo'lishi mumkin, lekin u 
 - `key:F12` (Mac: `key:Cmd+Opt+I`) tugmasi bilan developer toollarini yoqing.
 - `Sources` (manbalar) panelini tanlang.
 
-Agar siz buni birinchi marta qilayotkan bo'lsangiz quyidagilarni ko'rinadi: 
+Agar siz buni birinchi marta qilayotkan bo'lsangiz quyidagilar ko'rinadi: 
 
 ![](chrome-open-sources.svg)
 
