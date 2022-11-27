@@ -1,6 +1,6 @@
 # Mocha bilan avtomatik tekshiruv
 
-Avtomatik tekshiruv qo'shimcha topshiriqlarda, va haqiqiy loyihalarda keng ishlatiladi. 
+Avtomatik tekshiruv qo'shimcha topshiriqlarda va haqiqiy loyihalarda keng ishlatiladi. 
 
 ## Nima uchun bizga testlar kerak?
 
