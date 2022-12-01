@@ -22,7 +22,7 @@ Bu juda oddiy hol. Biz biror narsani dasturlaganimizda, juda ko'p foydalanilish 
 
 ## Xulq-atvorga asoslangan dastur (BDD)
 
-Keling [Behavior Driven Development](http://en.wikipedia.org/wiki/Behavior-driven_development) deb nomlangan yoki qisqa qilib aytkanda BDD amaliy uslubi bilan boshlaymiz.
+Keling [Behavior Driven Development](http://en.wikipedia.org/wiki/Behavior-driven_development) deb nomlangan yoki qisqa qilib aytganda BDD amaliy uslubi bilan boshlaymiz.
 
 **BDD bu uchta narsa bittada: testlar, qo'llanma va misollar**
 
