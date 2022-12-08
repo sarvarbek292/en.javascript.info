@@ -1,7 +1,7 @@
 
 # Symbol turi
 
-Spetsifikatsiyaga ko'ra, ob'ekt xossalari kalitlari satr turida yoki Symbollar turida bo'lishi mumkin. Raqamlar emas, mantiqiy emas, faqat satrlar yoki Symbollar, shu ikki turda bo'ladi.
+Spetsifikatsiyaga ko'ra, ob'ekt xossalari kalitlari string turida yoki Symbollar turida bo'lishi mumkin. Raqamlar emas, mantiqiy emas, faqat satrlar yoki Symbollar, shu ikki turda bo'ladi.
 
 Hozirgacha faqat satrlardan foydalanayotkan edik. Keling endi, Symbollar bizga qanday foyda keltirishi mumkinligini ko'rib chiqamiz.
 
@@ -200,77 +200,74 @@ let idAgain = Symbol.for("id");
 alert( id === idAgain ); // to'g'ri
 ```
 
-Ro'yxatga olish ichidagi symbol lar *global belgilar* deb ataladi. Agar biz kodning hamma joyidan foydalanish mumkin bo'lgan keng ko'lamli dastur symbol ga ega bo'lishni istasak - ular aynan shu maqsadda.
+Ro'yxatga olish ichidagi symbol lar *global symbollar* deb ataladi. Agar biz kodning hamma joyidan foydalanish mumkin bo'lgan keng ko'lamli dastur symbol ga ega bo'lishni istasak - ular aynan shu maqsadda.
 
 ```smart header="Bu Rubyga o'xshab ketadi"
-In some programming languages, like Ruby, there's a single symbol per name.
+Ruby kabi ba'zi dasturlash tillarida har bir nom uchun bitta symbol mavjud.
 
-In JavaScript, as we can see, that's right for global symbols.
+JavaScript-da, biz ko'rib turganimizdek, bu global symbol lar uchun to'g'ri.
 ```
 
 ### Symbol.keyFor
 
-For global symbols, not only `Symbol.for(key)` returns a symbol by name, but there's a reverse call: `Symbol.keyFor(sym)`, that does the reverse: returns a name by a global symbol.
+Global symbol lar uchun nafaqat `Symbol.for(key)` nomi bilan symbol ni qaytaradi, balki teskari chaqiruv ham mavjud: `Symbol.keyFor(sym)`, bu teskari harakatni amalga oshiradi: nomni global symbol bilan qaytaradi.
 
-For instance:
-
+Misol uchun:
 ```js run
-// get symbol by name
+// nomi bilan symbol ni oling
 let sym = Symbol.for("name");
 let sym2 = Symbol.for("id");
 
-// get name by symbol
-alert( Symbol.keyFor(sym) ); // name
+// nomnni belgi bilan oling
+alert( Symbol.keyFor(sym) ); // nom
 alert( Symbol.keyFor(sym2) ); // id
 ```
 
-The `Symbol.keyFor` internally uses the global symbol registry to look up the key for the symbol. So it doesn't work for non-global symbols. If the symbol is not global, it won't be able to find it and returns `undefined`.
+`Symbol.keyFor` symbol kalitini qidirish uchun global symbol lar registridan ichki ravishda foydalanadi.  Shunday uchun, u global bo'lmagan belgilar uchun ishlamaydi. Agar belgi global bo'lmasa, uni topa olmaydi va `undefined` ga qaytadi.
 
-That said, any symbols have `description` property.
+Ammo, har qanday symbol lar ham "descriptionary" xususiyatiga ega.
 
-For instance:
+Misol uchun:
 
 ```js run
 let globalSymbol = Symbol.for("name");
 let localSymbol = Symbol("name");
 
-alert( Symbol.keyFor(globalSymbol) ); // name, global symbol
-alert( Symbol.keyFor(localSymbol) ); // undefined, not global
+alert( Symbol.keyFor(globalSymbol) ); // nom, global symbol
+alert( Symbol.keyFor(localSymbol) ); // undefined, global emas
 
-alert( localSymbol.description ); // name
+alert( localSymbol.description ); // nom
 ```
 
-## System symbols
+## System symbol lar
 
-There exist many "system" symbols that JavaScript uses internally, and we can use them to fine-tune various aspects of our objects.
+JavaScript ichki tarzda foydalanadigan ko'plab "tizim" symbol lari mavjud va biz ulardan ob'ektlarimizning turli tomonlarini nozik sozlashda foydalanishimiz mumkin.
 
-They are listed in the specification in the [Well-known symbols](https://tc39.github.io/ecma262/#sec-well-known-symbols) table:
+Ular [Well-known symbols](https://tc39.github.io/ecma262/#sec-well-known-symbols) jadvalidagi spetsifikatsiyada keltirilgan:
 
 - `Symbol.hasInstance`
 - `Symbol.isConcatSpreadable`
 - `Symbol.iterator`
 - `Symbol.toPrimitive`
-- ...and so on.
+- ...va boshqalar.
 
-For instance, `Symbol.toPrimitive` allows us to describe object to primitive conversion. We'll see its use very soon.
+Misol uchun, `Symbol.toPrimitive` bizga ob'ektni primitiv konvertatsiya qilishni tasvirlash imkonini beradi. Tez orada uning ishlatilishini ko'ramiz.
+Tegishli til xususiyatlarini o'rganganimizda boshqa symbol lar ham tanish bo'lib qoladi.
 
-Other symbols will also become familiar when we study the corresponding language features.
+## Xulosa
 
-## Summary
+`Symbol` noyob identifikatorlar uchun primitiv tur hisoblanadi.
 
-`Symbol` is a primitive type for unique identifiers.
+Belgilar ixtiyoriy tavsif (nom) bilan `Symbol()` chaqiruvi bilan yaratiladi.
 
-Symbols are created with `Symbol()` call with an optional description (name).
+Belgilar bir xil nomga ega bo'lishiga qaramay, har doim turli xil qiymatlardir. Agar bir xil nomdagi belgilar teng bo'lishini istasak, u holda global registrdan foydalanishimiz kerak: `Symbol.for(key)` nom sifatida `key` bilan global symbolni qaytaradi (agar kerak bo'lsa yaratadi).`Symbol.for` ning bir xil  `key` bilan bir nechta chaqiruvlari aynan bir xil belgini qaytaradi.
+Symbol lar ikkita asosiy foydalanish holatiga ega:
 
-Symbols are always different values, even if they have the same name. If we want same-named symbols to be equal, then we should use the global registry: `Symbol.for(key)` returns (creates if needed) a global symbol with `key` as the name. Multiple calls of `Symbol.for` with the same `key` return exactly the same symbol.
+1. "Yashirin" ob'ekt xususiyatlari.
+   Agar biz boshqa skript yoki kutubxonaga "tegishli" ob'ektga xususiyat qo'shmoqchi bo'lsak, biz symbol yaratishimiz va uni xususiyat key (kalit)i sifatida ishlatishimiz mumkin. Symbolic xususiyat `for..in` da ko'rinmaydi, shuning uchun u boshqa xususiyatlar bilan birga tasodifan qayta jarayondan o'tishi mumkin emas. Bundan tashqari, unga to'g'ridan-to'g'ri kirish imkoni yo'q, chunki boshqa skriptda bizning symbol yo'q. Shunday uchun, mulk tasodifiy foydalanish yoki qayta yozishdan himoyalangan bo'ladi.
 
-Symbols have two main use cases:
+  O'zimizga kerak bo'lgan narsalarni "yashirincha" yashira olamiz, lekin symbolic xususiyatlardan foydalanib, boshqalar ko'rmasligi kerak. 
 
-1. "Hidden" object properties.
-    If we want to add a property into an object that "belongs" to another script or a library, we can create a symbol and use it as a property key. A symbolic property does not appear in `for..in`, so it won't be accidentally processed together with other properties. Also it won't be accessed directly, because another script does not have our symbol. So the property will be protected from accidental use or overwrite.
-
-    So we can "covertly" hide something into objects that we need, but others should not see, using symbolic properties.
-
-2. There are many system symbols used by JavaScript which are accessible as `Symbol.*`. We can use them to alter some built-in behaviors. For instance, later in the tutorial we'll use `Symbol.iterator` for [iterables](info:iterable), `Symbol.toPrimitive` to setup [object-to-primitive conversion](info:object-toprimitive) and so on.
+2. JavaScript-da `Symbol.*` sifatida foydalanish mumkin bo'lgan ko'plab tizim belgilari mavjud. Ulardan ba'zi o'rnatilgan xatti-harakatlarni o'zgartirish uchun foydalanish mumkin. Misol uchun, qo'llanmaning keyingi qismida, [iterables](info:iterable) uchun `Symbol.inerator` dan, [object-to-primitive conversion](info:object-toprimitive) ni ishka tushish uchun `Symbol.toPrimitive` dan foydalanamiz va boshqalar.
 
 Technically, symbols are not 100% hidden. There is a built-in method [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols) that allows us to get all symbols. Also there is a method named [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys) that returns *all* keys of an object including symbolic ones. So they are not really hidden. But most libraries, built-in functions and syntax constructs don't use these methods.
