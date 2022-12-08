@@ -181,28 +181,28 @@ Bu yerda hech qanday paradoks yo'q, bu shunchki dizayn bo'yicha. G'oya shundan i
 
 Ko'rib turganimizdek, odatda barcha belgilar bir xil nomga ega bo'lsa ham, har xil bo'ladi. But sometimes we want same-named symbols to be same entities. For instance, different parts of our application want to access symbol `"id"` meaning exactly the same property.
 
-To achieve that, there exists a *global symbol registry*. We can create symbols in it and access them later, and it guarantees that repeated accesses by the same name return exactly the same symbol.
+Bunga erishish uchun *global symbol registr*i mavjud. Unda symbol lar yaratib, ularga keyinroq kirsa bo'ladi va u bir xil nom bilan qayta-qayta kirirish  ayni bir xil symbolga qaytishni kafolatlaydi. 
 
-In order to read (create if absent) a symbol from the registry, use `Symbol.for(key)`.
+Ro'yxatga olish kitobidan belgini o'qish (agar yo'q bo'lsa yaratialdi) uchun `Symbol.for(key)` dan foydalaning.
 
-That call checks the global registry, and if there's a symbol described as `key`, then returns it, otherwise creates a new symbol `Symbol(key)` and stores it in the registry by the given `key`.
+Ushbu chaqiruv global registrni tekshiradi va agar `key` sifatida tasvirlangan symbol bo'lsa, uni qaytaradi, aks holda yangi `Symbol(key)` symbolni yaratadi va uni berilgan `kalit` bo'yicha registrda saqlaydi.
 
-For instance:
+Masalan:
 
 ```js run
-// read from the global registry
-let id = Symbol.for("id"); // if the symbol did not exist, it is created
+// global registrdan o'qing
+let id = Symbol.for("id"); // agar symbol mavjud bo'lmasa, u yaratiladi
 
-// read it again (maybe from another part of the code)
+// uni yana o'qing (kodning boshqa qismidan bo'lishi mumkin)
 let idAgain = Symbol.for("id");
 
-// the same symbol
-alert( id === idAgain ); // true
+// bir xil symbol
+alert( id === idAgain ); // to'g'ri
 ```
 
-Symbols inside the registry are called *global symbols*. If we want an application-wide symbol, accessible everywhere in the code -- that's what they are for.
+Ro'yxatga olish ichidagi symbol lar *global belgilar* deb ataladi. Agar biz kodning hamma joyidan foydalanish mumkin bo'lgan keng ko'lamli dastur symbol ga ega bo'lishni istasak - ular aynan shu maqsadda.
 
-```smart header="That sounds like Ruby"
+```smart header="Bu Rubyga o'xshab ketadi"
 In some programming languages, like Ruby, there's a single symbol per name.
 
 In JavaScript, as we can see, that's right for global symbols.
