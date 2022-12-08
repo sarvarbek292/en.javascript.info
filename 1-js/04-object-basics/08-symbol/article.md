@@ -1,31 +1,32 @@
 
-# Symbol type
+# Symbol turi
 
-By specification, object property keys may be either of string type, or of symbol type. Not numbers, not booleans, only strings or symbols, these two types.
+Spetsifikatsiyaga ko'ra, ob'ekt xossalari kalitlari satr turida yoki Symbollar turida bo'lishi mumkin. Raqamlar emas, mantiqiy emas, faqat satrlar yoki Symbollar, shu ikki turda bo'ladi.
 
-Till now we've been using only strings. Now let's see the benefits that symbols can give us.
+Hozirgacha faqat satrlardan foydalanayotkan edik. Keling endi, Symbollar bizga qanday foyda keltirishi mumkinligini ko'rib chiqamiz.
 
-## Symbols
+## Symbollar
 
-A "symbol" represents a unique identifier.
+"Symbol" noyob aniqlovchini ifodalaydi.
 
 A value of this type can be created using `Symbol()`:
 
 ```js
-// id is a new symbol
+// id yangi Symboldir
 let id = Symbol();
 ```
 
-Upon creation, we can give symbol a description (also called a symbol name), mostly useful for debugging purposes:
+Yaratilgandan so'ng, Symbolga tavsif berish mumkin(shuningdek Symbol vaqti ham deb ataladi), va ayniqsa debugging maqsadlarida foydali bo'ladi: 
 
 ```js
-// id is a symbol with the description "id"
+// id - "id" tavsifiga ega Symbol
 let id = Symbol("id");
 ```
 
-Symbols are guaranteed to be unique. Even if we create many symbols with the same description, they are different values. The description is just a label that doesn't affect anything.
+Symbol o'ziga hos bo'lishi kafolatlanadi. Xatto bir xil tavsif bilan ko'plab Symbol yaratsak ham, ular har xil qiymatda bo'ladi. Tavsif shunchaki yorliq bo'lib, hech narsaga ta'sir qilmaydi.
 
-For instance, here are two symbols with the same description -- they are not equal:
+
+Misol uchun, bu yerda bir xil tavsifga ega ikkita symbol bor - ular teng emas:
 
 ```js run
 let id1 = Symbol("id");
@@ -36,31 +37,31 @@ alert(id1 == id2); // false
 */!*
 ```
 
-If you are familiar with Ruby or another language that also has some sort of "symbols" -- please don't be misguided. JavaScript symbols are different.
+Agar Ruby yoki qandaydir "symbol"lari bo'lgan boshqa bir til bilan tanish bo'lsangiz -- yanglishmang. JavaScript belgilari boshqacha.
 
-````warn header="Symbols don't auto-convert to a string"
-Most values in JavaScript support implicit conversion to a string. For instance, we can `alert` almost any value, and it will work. Symbols are special. They don't auto-convert.
+````warn header="Symbol lar avtomatik ravishda string ga aylantirilmaydi"
+JavaScript dagi aksariayat qiymatlar string ga yashirin o'tishni qo'llaydi. Misol uchun, biz deyarli barcha qiymatni `alert` qila olamiz, va bu ishlaydi. Symbol lar maxsusdir. Ular avtomatik ravishda o'zgarmaydi. 
 
-For instance, this `alert` will show an error:
+Misol uchun, ushbu `alert` xatolikni ko'rsatib beradi:
 
 ```js run
 let id = Symbol("id");
 *!*
-alert(id); // TypeError: Cannot convert a Symbol value to a string
+alert(id); // TypeError: Symbol qiymatni string ga aylantirib bo‘lmaydi
 */!*
 ```
 
-That's a "language guard" against messing up, because strings and symbols are fundamentally different and should not accidentally convert one into another.
+Bu chalkashlikllarni oldini olish uchun "language guard" (til qo'riqchisi) dir, chunki string lar va symbol lar tubdan farq qiladi va ular tasodifan bir-biriga aylantirilmasligi kerak.
 
-If we really want to show a symbol, we need to explicitly call `.toString()` on it, like here:
+Agar symbol ni ko'rsatmoqchi bo'lsak, unda `.toString()` ni ochiq tarzda chaqirishimiz kerak bo'ladi, xuddi shunga o'xshab:
 ```js run
 let id = Symbol("id");
 *!*
-alert(id.toString()); // Symbol(id), now it works
+alert(id.toString()); // Symbol(id), endi u ishlaydi
 */!*
 ```
 
-Or get `symbol.description` property to show the description only:
+Yoki faqat tavsifni ko'rsatish uchun "symbol.description" xususiyatini olinadi:
 ```js run
 let id = Symbol("id");
 *!*
@@ -70,16 +71,16 @@ alert(id.description); // id
 
 ````
 
-## "Hidden" properties
+## "Hidden" (Yashirin) xususiyatlar
 
-Symbols allow us to create "hidden" properties of an object, that no other part of code can accidentally access or overwrite.
+Symbol lar bizga ob'ektning kodning boshqa bir qismi tasodifan kira olmaydigan va ustiga  yoza olmaydigan "yashirin" xususiyatlar yaratish imkonini beradi. 
 
-For instance, if we're working with `user` objects, that belong to a third-party code. We'd like to add identifiers to them.
+Misol uchun, agar `user` ob'ektlari bilan foydalanayotkan bo'lsak, ular uchinchi qism kodiga tegishli. Biz ularga aniqlovchialrni qo'shmoqchimiz.
 
-Let's use a symbol key for it:
+Buning uchun symbol kalitidan foydalanamiz:
 
 ```js run
-let user = { // belongs to another code
+let user = { // boshqa kodga tegishli
   name: "John"
 };
 
@@ -87,16 +88,16 @@ let id = Symbol("id");
 
 user[id] = 1;
 
-alert( user[id] ); // we can access the data using the symbol as the key
+alert( user[id] ); // Ma'lumotlarga symbol dan kalit sifatida foydalanib kirish mumkin
 ```
 
-What's the benefit of using `Symbol("id")` over a string `"id"`?
+`Symbol("id")` ni `"id"` stringi ustidan foydalanishning foydasi nima?
 
-As `user` objects belongs to another code, and that code also works with them, we shouldn't just add any fields to it. That's unsafe. But a symbol cannot be accessed accidentally, the third-party code probably won't even see it, so it's probably all right to do.
+`user` ob'ektlari boshqa kodga tegishli bo'lgani uchun va bu kod ular bilan ham ishlaganligi uchun, unga shunchaki maydon qo'shmasligimiz kerak bo'ladi. Bu xavfli ish. Ammo symbolga tasodifan kirish mumkin emas, uchinchi tomon kodi uni hatto ko'rmasligi ham mumkin, shuning uchun buni qilish to'g'ri bo'lishi ham mumkin.
 
-Also, imagine that another script wants to have its own identifier inside `user`, for its own purposes. That may be another JavaScript library, so that the scripts are completely unaware of each other.
+Bundan tashqari, tasavvur qiling, boshqa skript o'z maqsadlari uchun `user` ichida o'z identifikatoriga ega bo'lishni xohlayapti. Bu boshqa bir JavaScript kutubxonasi bo'lishi mumkin, shuning uchun skriptlar bir-biridan mutlaqo bexabar holatda.
 
-Then that script can create its own `Symbol("id")`, like this:
+Keyin bu skript o'zining "Symbol("id")' ni yaratishi mumkin, masalan:
 
 ```js
 // ...
@@ -105,27 +106,27 @@ let id = Symbol("id");
 user[id] = "Their id value";
 ```
 
-There will be no conflict between our and their identifiers, because symbols are always different, even if they have the same name.
+Bizning va ularning identifikatorlari o'rtasida hech qanday ziddiyat bo'lmaydi, chunki symbol lar bir xil nomga ega bo'lsa ham, har doim farq qiladi.
 
-...But if we used a string `"id"` instead of a symbol for the same purpose, then there *would* be a conflict:
-
+...Ammo bir xil maqsad uchun symbol o'rniga `"id"` string idan foydalansak, U holda u yerda ziddiyat *bo'lardi*:
 ```js
+    
 let user = { name: "John" };
 
-// Our script uses "id" property
+// Bizning skriptimiz "id" xususiyatidan foydalanadi
 user.id = "Our id value";
 
-// ...Another script also wants "id" for its purposes...
+// ...Boshqa skript ham o'zining maqsadlari uchun "id" dan foydalanishni xohlaydi... 
 
-user.id = "Their id value"
-// Boom! overwritten by another script!
+user.id = "Their id value"   
+// Bom! boshqa skript tomonidan yozilgan!
 ```
 
-### Symbols in an object literal
+### Ob'ekt harfidagi symbol lar
 
-If we want to use a symbol in an object literal `{...}`, we need square brackets around it.
+Agar biz `{...}` ob'ektida symboldan foydalanmoqchi bo'lsak, uning atrofida kvadrat qavslar kerak.
 
-Like this:
+Shunga o'xshash:
 
 ```js
 let id = Symbol("id");
@@ -133,18 +134,17 @@ let id = Symbol("id");
 let user = {
   name: "John",
 *!*
-  [id]: 123 // not "id": 123
+  [id]: 123 // "id" emas: 123
 */!*
 };
 ```
-That's because we need the value from the variable `id` as the key, not the string "id".
+Buning sababi, kalit sifatida bizga "id" string emas, balki "id" o'zgaruvchisi qiymati kerak.
 
-### Symbols are skipped by for..in
+### Symbols for..in tomonidan tashlab ketiladi 
 
-Symbolic properties do not participate in `for..in` loop.
+Symbolic xususiyatlar `for..in` siklida qatnashmaydi.
 
-For instance:
-
+Misol uchun:
 ```js run
 let id = Symbol("id");
 let user = {
@@ -154,17 +154,16 @@ let user = {
 };
 
 *!*
-for (let key in user) alert(key); // name, age (no symbols)
+for (let key in user) alert(key); // ism, yosh (symbol larsiz)
 */!*
 
-// the direct access by the symbol works
+// symbol orqali to'g'ridan to'g'ri kirish ishlaydi
 alert( "Direct: " + user[id] );
 ```
 
-[Object.keys(user)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys) also ignores them. That's a part of the general "hiding symbolic properties" principle. If another script or a library loops over our object, it won't unexpectedly access a symbolic property.
+[Object.keys(user)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys) ham ularga e'tibor bermaydi. Bu umumiy "symbolic xususiyatlarni yashirish" tamoyilining bir qismidir. Agar boshqa skript yoki kutubxona ob'ektimiz ustidan aylansa, u kutilmaganda symbolic xususiyatga kira olmaydi.
 
-In contrast, [Object.assign](mdn:js/Object/assign) copies both string and symbol properties:
-
+Bundan farqli ravishda, [Object.assign](mdn:js/Object/assign) ham string, ham symbol xususiyatlarini nusxalaydi:
 ```js run
 let id = Symbol("id");
 let user = {
@@ -176,11 +175,11 @@ let clone = Object.assign({}, user);
 alert( clone[id] ); // 123
 ```
 
-There's no paradox here. That's by design. The idea is that when we clone an object or merge objects, we usually want *all* properties to be copied (including symbols like `id`).
+Bu yerda hech qanday paradoks yo'q, bu shunchki dizayn bo'yicha. G'oya shundan iboratki, biz ob'ektni klonlash yoki ob'ektlarni birlashtirganda, biz odatda *barcha* xususiyatlarni (jumladan, `id` kabi symbol larni) ham nusxalashni xohlaymiz.
 
-## Global symbols
+## Global symbol lar
 
-As we've seen, usually all symbols are different, even if they have the same name. But sometimes we want same-named symbols to be same entities. For instance, different parts of our application want to access symbol `"id"` meaning exactly the same property.
+Ko'rib turganimizdek, odatda barcha belgilar bir xil nomga ega bo'lsa ham, har xil bo'ladi. But sometimes we want same-named symbols to be same entities. For instance, different parts of our application want to access symbol `"id"` meaning exactly the same property.
 
 To achieve that, there exists a *global symbol registry*. We can create symbols in it and access them later, and it guarantees that repeated accesses by the same name return exactly the same symbol.
 
